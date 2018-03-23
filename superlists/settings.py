@@ -25,6 +25,23 @@ SECRET_KEY = '+nrec*$2*6q+j$_z0)89**dv17uv487)^62f3cg2@in!c@4$=i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+        },
+    },
+    'root': {'level': 'INFO'}
+}
+
 ALLOWED_HOSTS = []
 
 
@@ -126,3 +143,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mister.nipples@googlemail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
