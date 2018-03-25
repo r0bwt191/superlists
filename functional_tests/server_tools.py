@@ -8,7 +8,7 @@ def _get_manage_dot_py(host):
 
 def reset_database(host):
     manage_dot_py = _get_manage_dot_py(host)
-    with settings(host_string=f'ubuntu@{host}'):
+    with settings(host_string=f'{host}', user='ubuntu', key_filename='~/.ssh/server01.pem'):
         run(f'{manage_dot_py} flush --noinput')
 
 
@@ -17,4 +17,3 @@ def create_session_on_server(host, email):
     with settings(host_string=f'ubuntu@{host}'):
         session_key = run(f'{manage_dot_py} create_session {email}')
         return session_key.strip()
-        
