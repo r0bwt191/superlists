@@ -11,3 +11,10 @@
         {% endfor %}
     </table>
 {% endblock %}
+
+{% block extra_content %}
+    <form method="POST">
+        {% csrf_token %}
+        <input id="id_list_sharee" name="sharee" placeholder="your-friend@example.com" />
+    </form>
+{% endblock %}
