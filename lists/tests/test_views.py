@@ -208,11 +208,12 @@ class NewListViewUnitTest(unittest.TestCase):
 class ShareListViewTest(TestCase):
 
     def test_POST_redirects_to_list_view(self):
-        user = User.objects.create(email='a@b.com')
-        list_ = List.objects.create(owner=user)
+        user1 = User.objects.create(email='a@b.com')
+        user2 = User.objects.create(email='b@c.com')
+        list_ = List.objects.create(owner=user1)
         item = Item.objects.create(list=list_, text='stuff')
         response = self.client.post(f'/lists/{list_.id}/share', data={
-            'sharee': 'b@c.com'
+            'sharee': user2.email
         })
 
         self.assertRedirects(response, f'/lists/{list_.id}/')
@@ -227,6 +228,6 @@ class ShareListViewTest(TestCase):
         })
 
         self.assertIn(
-            user2.email,
+            user2,
             list_.shared_with.all()
         )
